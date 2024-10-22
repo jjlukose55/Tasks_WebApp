@@ -161,9 +161,11 @@ document.addEventListener("DOMContentLoaded", function () {
               type="date" min="2022-04-01" ${
                 immutable ? "readonly" : NaN
               }/>
-              <button class="${
-                (immutable || listName == "currentTasks") ? "hidden" : "deleteBtn"
-              }">Delete</button>
+              <button class="
+              ${(immutable) ? "hidden" : "deleteBtn"}
+              ">
+              ${(listName == "currentTasks") ? "Complete" : "Delete"}
+              </button>
           </div>
         `;
 
@@ -266,15 +268,25 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     //delete button
-    let deleteButtons = document.querySelectorAll(".deleteBtn")
+    let deleteButtons = document.querySelectorAll(".deleteBtn");
     if (deleteButtons) {
       deleteButtons.forEach(deleteButton => {
         deleteButton.addEventListener("click", function () {
           let listItem = deleteButton.parentElement.parentElement
-          console.log(listItem);
+          console.log("name " + listItem.getAttribute("name"));
+
+          console.log(deleteButton.textContent);
           
-          removeObjectWithId(completedTasks.listOfInputs, listItem.id);
           
+          if (listItem.getAttribute("name") == "completedTasks") {
+            removeObjectWithId(completedTasks.listOfInputs, listItem.id);
+
+          } else if (listItem.getAttribute("name") == "currentTasks") {
+            removeObjectWithId(currentTasks.listOfInputs, listItem.id);
+            completedTasks.listOfInputs.push(listItem.id)
+          } else { console.log("no match");
+          }
+
           populateEmptyArrays();
         });
       });
