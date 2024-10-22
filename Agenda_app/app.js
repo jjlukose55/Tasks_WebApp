@@ -149,24 +149,22 @@ document.addEventListener("DOMContentLoaded", function () {
       );
 
       listItem.innerHTML = `
-          <div>
-              <span class="number">${index + 1}</span>
-              <label for="${task}">${task}</label>
-              <input value="${currentDate}"
-              class="${
-                immutable
-                  ? "hidden"
-                  : ""
-              }" 
-              type="date" min="2022-04-01" ${
-                immutable ? "readonly" : NaN
-              }/>
-              <button class="
-              ${(immutable) ? "hidden" : "deleteBtn"}
-              ">
-              ${(listName == "currentTasks") ? "Complete" : "Delete"}
-              </button>
-          </div>
+          <p class="number">${index + 1}</p>
+          <p for="${task}">${task}</p>
+          <input value="${currentDate}"
+          class="${
+            immutable
+              ? "hidden"
+              : ""
+          }" 
+          type="date" min="2022-04-01" ${
+            immutable ? "readonly" : NaN
+          }/>
+          <button class="
+          ${(immutable) ? "hidden" : "deleteBtn"}
+          ">
+          ${(listName == "currentTasks") ? "Complete" : "Delete"}
+          </button>
         `;
 
       listStorage.push(listItem);
@@ -272,7 +270,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (deleteButtons) {
       deleteButtons.forEach(deleteButton => {
         deleteButton.addEventListener("click", function () {
-          let listItem = deleteButton.parentElement.parentElement
+          let listItem = deleteButton.parentElement
           console.log("name " + listItem.getAttribute("name"));
 
           console.log(deleteButton.textContent);

@@ -56,17 +56,24 @@ body {
 
 p {
     font-size: x-large;
+    overflow-wrap: anywhere;
 }
 
 li {
+    display: flex;
+    gap: 15px;
+    max-height: fit-content;
     font-size: large;
     list-style: none;
     min-width: 400px;
+    align-items: center;
 }
 ul {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
+}
+input {
+    min-width: max-content;
 }
 #header {
     display: grid;
