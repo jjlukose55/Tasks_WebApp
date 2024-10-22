@@ -69,24 +69,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const completedTasks = new List({id : "completed_tasks", name : "completedTasks"});
 
-  const deletedTasks = new List({id : "deleted_tasks", name : "deletedTasks"});
+  const listOfLists = [currentTasks, completedTasks];
 
-  const listOfLists = [currentTasks, completedTasks, deletedTasks];
+  //start function
+
   //input
   let input = document.getElementById("task-input");
-
   let submitButton = document.getElementById("submit-button");
+
+  let currentIndex = 0;
+  let randomTasks = [
+    "Fight a Bear!",
+    "Beat Minecraft",
+    "Tell a Lie",
+    "Flex on the Haters",
+    "Watch Shrek",
+  ]
+
   submitButton.addEventListener("click", function (event) {
     event.preventDefault();
     //resets random list
-    if (randomListInputsIndex > randomListInputs.length - 1){
-      randomListInputsIndex = 0;
+    if (currentIndex > randomTasks.length - 1){
+      currentIndex = 0;
     }
     //pushes something to the tasks list
     let taskToAdd = input.value;
     if (input.value == ""){
-      taskToAdd = randomListInputs[randomListInputsIndex];
-      randomListInputsIndex++;
+      taskToAdd = randomTasks[currentIndex];
+      currentIndex++;
     }
     currentTasks.listOfInputs.push(taskToAdd);
     input.value = "";
@@ -94,15 +104,6 @@ document.addEventListener("DOMContentLoaded", function () {
     populateEmptyArrays();
   });
   
-  let randomListInputsIndex = 0;
-  let randomListInputs = [
-    "Fight a Bear!",
-    "Beat Minecraft",
-    "Tell a Lie",
-    "Flex on the Haters",
-    "Watch Shrek",
-  ]
-  //start function
   populateEmptyArrays();
 
   function populateEmptyArrays() {
@@ -148,26 +149,22 @@ document.addEventListener("DOMContentLoaded", function () {
       );
 
       listItem.innerHTML = `
-        <span class="number">${index + 1}</span>
-            <div>
-                <input 
-                    type="checkbox"
-                    id="${task}"
-                    name="${listName}"
-                    value="${task}"
-                />
-                <label for="${task}">${task}</label>
-                <input value="${
-                  immutable
-                    ? immutableDate
-                    : currentDate
-                }" type="date" min="2022-04-01" ${
-                  immutable ? "readonly" : NaN
-                }/>
-                <button class="${
-                  immutable ? "uselessBtn" : "deleteBtn"
-                }">Delete</button>
-            </div>
+          <div>
+              <span class="number">${index + 1}</span>
+              <label for="${task}">${task}</label>
+              <input value="${currentDate}"
+              class="${
+                immutable
+                  ? "hidden"
+                  : ""
+              }" 
+              type="date" min="2022-04-01" ${
+                immutable ? "readonly" : NaN
+              }/>
+              <button class="${
+                (immutable || listName == "currentTasks") ? "hidden" : "deleteBtn"
+              }">Delete</button>
+          </div>
         `;
 
       listStorage.push(listItem);
@@ -269,9 +266,19 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     //delete button
-    document.querySelector(".deleteBtn").addEventListener("click", function () {
-
-      console.log("delete");
-    });
+    let deleteButtons = document.querySelectorAll(".deleteBtn")
+    if (deleteButtons) {
+      deleteButtons.forEach(deleteButton => {
+        deleteButton.addEventListener("click", function () {
+          let listItem = deleteButton.parentElement.parentElement
+          console.log(listItem);
+          
+          removeObjectWithId(completedTasks.listOfInputs, listItem.id);
+          
+          populateEmptyArrays();
+        });
+      });
+    }
+    
   }
 });

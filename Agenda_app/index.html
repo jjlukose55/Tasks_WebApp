@@ -6,46 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agenda</title>
     <link rel="stylesheet" href="main.css">
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-analytics.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-      
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-          apiKey: "AIzaSyDSfrxWWpQRtMP9QOUeoyi9E_JMv3WJ7H8",
-          authDomain: "tasks0.firebaseapp.com",
-          databaseURL: "https://tasks0-default-rtdb.firebaseio.com",
-          projectId: "tasks0",
-          storageBucket: "tasks0.appspot.com",
-          messagingSenderId: "242009464294",
-          appId: "1:242009464294:web:496836e2a6442a8a074a27",
-          measurementId: "G-F57G4CH9FR"
-        };
-      
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-      </script>
 </head>
 <body class="light-theme">
-    <h1>Tasks</h1>
-    <form>
-        <label>add tasks:</label><br>
-        <input id="task-input" type="text" placeholder="fight a bear">
-        <input id="submit-button" type="submit">
-    </form>
-    <p class="lists">Current Tasks:</p>
-    <ul class="draggable-list" id="current_tasks"></ul>
-    <p class="lists">Completed Tasks:</p>
-    <ul class="draggable-list" id="completed_tasks"></ul>
-    <p class="lists">Deleted Tasks:</p>
-    <ul class="draggable-list" id="deleted_tasks"></ul>
-    <div>
-        <button class="themeBtn">Dark</button>
+    <div id="wrapper">
+        <div id="header">
+            <h1>Tasks</h1>
+            <div>
+                <button class="themeBtn">Dark</button>
+            </div>
+            <form>
+                <label>add tasks:</label>
+                <input id="task-input" type="text" placeholder="fight a bear">
+                <input id="submit-button" type="submit">
+            </form>
+        </div>
+        <div id="lists">
+            <p class="lists">Current Tasks:</p>
+            <ul class="draggable-list" id="current_tasks"></ul>
+            <p class="lists">Completed Tasks:</p>
+            <ul class="draggable-list" id="completed_tasks"></ul>
+        </div>
     </div>
     <script src="app.js"></script>
     <noscript>You need to enable JavaScript to view the full site.</noscript>
